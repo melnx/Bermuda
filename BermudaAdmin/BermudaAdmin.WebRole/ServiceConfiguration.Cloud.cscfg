@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="BermudaAdmin.WebRole" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
+  <Role name="Bermuda.AdminService">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString"
+               value="DefaultEndpointsProtocol=https;AccountName=bermudadevelopment2;AccountKey=J3oDGenz9P+C45Dx301RgfVkYI54KC7Sjnp5/y9fYCQjXg0T+mHc1ye1mUW0z53uv4V+GW3i1rUvNepqqY1I0g==" />
+      <Setting name="StorageAccount.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=bermudadevelopment2;AccountKey=J3oDGenz9P+C45Dx301RgfVkYI54KC7Sjnp5/y9fYCQjXg0T+mHc1ye1mUW0z53uv4V+GW3i1rUvNepqqY1I0g==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

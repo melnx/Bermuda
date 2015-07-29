@@ -1,0 +1,75 @@
+REGEDIT4
+
+; This registry file is for 32-bit data sources on 64-bit Windows.
+; Make sure to replace all instances of [INSTALL_DIRECTORY] with the installation directory for SimbaEngine before merging with Windows Registry.
+; Notice the double backslashes in the following example: 
+;   "C:\\Simba Technologies"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC\ODBC.INI]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC\ODBC.INI\ODBC Data Sources]
+"BermudaODBCDSII"="BermudaODBCDSIIDriver"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC\ODBC.INI\BermudaODBCDSII]
+"Driver"="C:\\Code\\EvoApp\\Bermuda\\Bermuda.ODBCDriver\\Win32\\Debug_MTDLL\\BermudaCLIDSI.dll"
+"UID"="uid"
+"PWD"="pwd"
+"Catalog"=""
+"Description"="Bermuda 32-bit ODBC Driver"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC\ODBCINST.INI]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC\ODBCINST.INI\ODBC Drivers]
+"BermudaODBCDSIIDriver"="Installed"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\ODBC\ODBCINST.INI\BermudaODBCDSIIDriver]
+"Driver"="C:\\Code\\EvoApp\\Bermuda\\Bermuda.ODBCDriver\\Win32\\Debug_MTDLL\\BermudaCLIDSI.dll"
+"Description"="Bermuda 32-bit ODBC Driver"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII]
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Driver]
+"DriverManagerEncoding"="UTF-16"
+"ErrorMessagesPath"="C:\\Simba Technologies\\SimbaEngineSDK\\9.0\\DataAccessComponents\\ErrorMessages"
+"LogLevel"="0"
+"LogNamespace"=""
+"LogPath"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Server]
+"DriverManagerEncoding"="UTF-16"
+"ErrorMessagesPath"="C:\\Simba Technologies\\SimbaEngineSDK\\9.0\\DataAccessComponents\\ErrorMessages"
+"LogLevel"="0"
+"LogNamespace"=""
+"LogPath"=""
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Server\Network]
+"MaxConnections"="64"
+"ListenAddress"=""
+"ConnectionIdleTimeout"="86400"
+"ListenPort"="12345"
+"UseSsl"="0"
+"SslCertfile"="C:\\Simba Technologies]\\SimbaEngineSDK\\9.0\\SSLCertificates\\SimbaServerCertificate.pem"
+"SslKeyFile"="C:\\Simba Technologies\\SimbaEngineSDK\\9.0\\SSLCertificates\\SimbaServerKey.pem"
+"MaxDataChunkSize"="65550"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Server\Admin]
+"UseSignaling"="Yes"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Server\Buffers]
+"BufferAllocationSize"="8192"
+"PreAllocatedBuffers"="1000"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Server\Threads]
+"MinWorkerThreads"="10"
+"TaskQueueTimeout"="1000"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Simba\BermudaODBCDSII\Driver]
+"DriverManagerEncoding"="UTF-16"
+"ErrorMessagesPath"="C:\\Simba Technologies\\SimbaEngineSDK\\9.0\\DataAccessComponents\\ErrorMessages"
+"LogLevel"="0"
+"LogPath"=""
+"LogNamespace"=""

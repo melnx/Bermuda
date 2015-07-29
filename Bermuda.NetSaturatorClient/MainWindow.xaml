@@ -1,0 +1,33 @@
+﻿<Window x:Class="Bermuda.NetSaturatorClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NetSaturatorClient" Height="200" Width="300"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Packets Per Second" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0"/>
+            <TextBox VerticalAlignment="Center" Margin="5" Grid.Column="1"  Text="{Binding PacketsPerSecond}" IsEnabled="{Binding Stopped}"/>    
+        </Grid>
+        <Label Grid.Row="1" Content="{Binding PacketsSentLabel, FallbackValue='Packets Sent: 0'}" VerticalAlignment="Center"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btStart" Content="Start" Grid.Column="1" Margin="5" Click="btStart_Click" IsEnabled="{Binding Stopped}"/>
+            <Button Name="btStop" Content="Stop" Grid.Column="2" Margin="5" Click="btStop_Click" IsEnabled="{Binding Started}"/>
+        </Grid>
+        
+    </Grid>
+</Window>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F52AD907-B8FC-4E20-9925-6324766B3B5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bermuda.ExpressionGeneration</RootNamespace>
+    <AssemblyName>Bermuda.ExpressionGenerator</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Bermuda.ExpressionGeneration.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Crop.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Generation.cs" />
+    <Compile Include="GroupBy.cs" />
+    <Compile Include="InferTypes.cs" />
+    <Compile Include="LinkDimensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Merge.cs" />
+    <Compile Include="Paging.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QL\AndCondition.cs" />
+    <Compile Include="QL\ArgumentListExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QL\CollectionExpression.cs" />
+    <Compile Include="QL\ConditionalExpression.cs" />
+    <Compile Include="QL\ConditionGroup.cs" />
+    <Compile Include="QL\Converters\ConverterBase.cs" />
+    <Compile Include="QL\Converters\ConverterTypeAttribute.cs" />
+    <Compile Include="QL\Converters\DateTimeConverter.cs" />
+    <Compile Include="QL\Converters\SentimentConverter.cs" />
+    <Compile Include="EvoQL.parser.cs">
+      <DependentUpon>EvoQL.atg</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="QL\DimensionExpression.cs" />
+    <Compile Include="QL\EvoQLBuilder.cs" />
+    <Compile Include="QL\EvoQLExpression.cs" />
+    <Compile Include="QL\EvoQLMetadata.cs" />
+    <Compile Include="QL\Exception.cs" />
+    <Compile Include="QL\ExpressionTreeBase.cs" />
+    <Compile Include="QL\Extensions.cs" />
+    <Compile Include="QL\GetExpression.cs" />
+    <Compile Include="QL\GetTypes.cs" />
+    <Compile Include="QL\GroupByExpression.cs" />
+    <Compile Include="QL\HavingExpression.cs" />
+    <Compile Include="QL\InExpression.cs" />
+    <Compile Include="QL\Input.cs" />
+    <Compile Include="QL\LiteralExpression.cs" />
+    <Compile Include="QL\ModifierTypes.cs" />
+    <Compile Include="QL\MultiNodeTree.cs" />
+    <Compile Include="QL\NotCondition.cs" />
+    <Compile Include="QL\OrCondition.cs" />
+    <Compile Include="QL\RangeExpression.cs" />
+    <Compile Include="QL\RootExpression.cs" />
+    <Compile Include="QL\SelectExpression.cs" />
+    <Compile Include="QL\SelectorExpression.cs" />
+    <Compile Include="QL\SelectorTypes.cs" />
+    <Compile Include="QL\SingleNodeTree.cs" />
+    <Compile Include="QL\Tree.cs" />
+    <Compile Include="QL\ValueExpression.cs" />
+    <Compile Include="Select.cs" />
+    <Compile Include="TypeCreator.cs" />
+    <Compile Include="UtilityExtensions.cs" />
+    <Compile Include="Where.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bermuda.Interface\Bermuda.Interface.csproj">
+      <Project>{0EF25A32-6F4A-44F7-B461-D45132500617}</Project>
+      <Name>Bermuda.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bermuda.ExpressionGeneration.snk" />
+    <None Include="EvoQL.atg">
+      <Generator>.atg</Generator>
+      <LastGenOutput>EvoQL.parser.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

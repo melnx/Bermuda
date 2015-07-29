@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6bc48c75-4343-4e19-aa6d-cee636b6fd0c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:13866/Connection.Internal/BermudaService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BermudaService.xsd" MetadataType="Schema" ID="65d110fd-e4ec-400a-9814-e8e2d84cb822" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd4" />
+    <MetadataFile FileName="BermudaService1.xsd" MetadataType="Schema" ID="3c7dcf38-51f4-4b40-9580-1895e920e6cd" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd0" />
+    <MetadataFile FileName="BermudaService2.xsd" MetadataType="Schema" ID="80b270fd-5b10-4718-b03e-38590d115111" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd1" />
+    <MetadataFile FileName="BermudaService.wsdl" MetadataType="Wsdl" ID="e3e2e4ae-a167-4095-bcfd-f46f59db0ec8" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?wsdl" />
+    <MetadataFile FileName="BermudaService3.xsd" MetadataType="Schema" ID="e1bb8600-6920-4472-a6d8-ea2a7466f941" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd3" />
+    <MetadataFile FileName="BermudaService4.xsd" MetadataType="Schema" ID="572361e3-dbe6-4306-a977-6c96a89a7229" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd2" />
+    <MetadataFile FileName="BermudaService.disco" MetadataType="Disco" ID="09bb8cd5-a65e-4be4-ba8d-b60510c4de03" SourceId="1" SourceUrl="http://localhost:13866/Connection.Internal/BermudaService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

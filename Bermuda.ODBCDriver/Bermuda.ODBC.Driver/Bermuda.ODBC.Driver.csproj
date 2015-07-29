@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4370E30D-9AEE-45DE-A8D0-649873A111BB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bermuda.ODBC.Driver</RootNamespace>
+    <AssemblyName>Bermuda.ODBC.Driver</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Bermuda.ODBC.Driver.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Simba.DotNetDSI, Version=9.0.10.1071, Culture=neutral, PublicKeyToken=861a45bbfd01762d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BConnection.cs" />
+    <Compile Include="BConnectionDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BConnectionDlg.Designer.cs">
+      <DependentUpon>BConnectionDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BDriver.cs" />
+    <Compile Include="BEnvironment.cs" />
+    <Compile Include="BStatement.cs" />
+    <Compile Include="DataEngine\BDataEngine.cs" />
+    <Compile Include="DataEngine\BQueryExecutor.cs" />
+    <Compile Include="DataEngine\ResultTable\BResultTable.cs" />
+    <Compile Include="DataEngine\Metadata\BCatalogOnlyMetadataSource.cs" />
+    <Compile Include="DataEngine\Metadata\BColumnsMetadataSource.cs" />
+    <Compile Include="DataEngine\ResultTable\BFakeResultTable.cs" />
+    <Compile Include="DataEngine\Metadata\BSchemaOnlyMetadataSource.cs" />
+    <Compile Include="DataEngine\Metadata\BTablesMetadataSource.cs" />
+    <Compile Include="DataEngine\Metadata\BTypeInfoMetadataSource.cs" />
+    <Compile Include="DataEngine\Metadata\TypeInfo.cs" />
+    <Compile Include="DataEngine\Metadata\TypeMetadataHelper.cs" />
+    <Compile Include="DataEngine\ResultTable\BResultTableFactory.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="BProperties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bermuda.ODBC.Driver.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bermuda.Constants\Bermuda.Constants.csproj">
+      <Project>{0E4761E9-1D7E-456B-8BFE-5DA44F6BB425}</Project>
+      <Name>Bermuda.Constants</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bermuda.ExpressionGenerator\Bermuda.ExpressionGeneration.csproj">
+      <Project>{F52AD907-B8FC-4E20-9925-6324766B3B5B}</Project>
+      <Name>Bermuda.ExpressionGeneration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bermuda.Interface\Bermuda.Interface.csproj">
+      <Project>{0EF25A32-6F4A-44F7-B461-D45132500617}</Project>
+      <Name>Bermuda.Interface</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BConnectionDlg.resx">
+      <DependentUpon>BConnectionDlg.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

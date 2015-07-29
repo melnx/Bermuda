@@ -1,0 +1,411 @@
+COMPILER EvoQL
+
+public RootExpression RootTree { get; private set; } 
+
+bool FollowedByColon() 
+{ 
+	Token x = la; 
+	//while (x.kind == _Word || x.kind == _Phrase) 
+		x = scanner.Peek(); 
+	return x.val == ":" || x.val == "<" || x.val == ">"; 
+}
+
+private void MultiAdd(ExpressionTreeBase parent, ExpressionTreeBase child)
+{
+	if (parent is MultiNodeTree)
+	{
+		((MultiNodeTree)parent).AddChild(child);
+	}
+	else if (parent is ConditionalExpression && child is ConditionalExpression)
+	{
+		((ConditionalExpression)parent).AddCondition((ConditionalExpression)child);
+	}
+	else if (parent is SingleNodeTree)
+	{
+		((SingleNodeTree)parent).SetChild(child);
+	}
+}
+
+private GetTypes GetGetType(string value) 
+{
+	GetTypes type;
+
+	switch(value.ToLower())
+	{
+		case "mention":								 type = GetTypes.Mention; break;
+		default:									 type = GetTypes.Unknown; break;
+	}
+
+	return type;
+}
+
+private SetterTypes GetSetterType(string value)
+{
+	SetterTypes type;
+	switch(value.ToUpper())
+	{
+		case "TAG": 								 type = SetterTypes.Tag; break;
+		case "SENTIMENT": 							 type = SetterTypes.Sentiment; break;
+		case "DELETE": 								 type = SetterTypes.Delete; break;
+		case "INFLUENCE":							 type = SetterTypes.Influence; break;
+		default:								     type = SetterTypes.Unknown; break;
+	}
+
+	return type;
+}
+
+private SelectorTypes GetSelectorType(string value)
+{
+	SelectorTypes type;
+
+	switch(value.ToUpper()) 
+	{
+		case "TYPE":								type = SelectorTypes.Type; break;
+		case "NAME": 								type = SelectorTypes.Name; break;
+		case "FROMDATE": 							type = SelectorTypes.FromDate; break;
+		case "TODATE":								type = SelectorTypes.ToDate; break;
+		case "DATE": 								type = SelectorTypes.Date; break;
+		case "FROM": 								type = SelectorTypes.From; break;
+		case "TO":									type = SelectorTypes.To; break;
+		case "ANYDIRECTION": 						type = SelectorTypes.AnyDirection; break;
+		case "INVOLVES": 							type = SelectorTypes.AnyDirection; break;
+		case "TAG":									type = SelectorTypes.Tag; break;
+		case "FOR":									type = SelectorTypes.For; break;
+		case "SENTIMENT":							type = SelectorTypes.Sentiment; break;
+		case "SOURCE":								type = SelectorTypes.Source; break;
+		case "AUTHOR":								type = SelectorTypes.Author; break;
+		case "KEYWORD":								type = SelectorTypes.Keyword; break;
+		case "INITIATOR":							type = SelectorTypes.Initiator; break;
+		case "TARGET":								type = SelectorTypes.Target; break;
+		case "REPLYTO":								type = SelectorTypes.ReplyTo; break;
+		case "TAGCOUNT":							type = SelectorTypes.TagCount; break;
+		case "COMMENTCOUNT":						type = SelectorTypes.ChildCount; break;
+		case "DATASOURCE":							type = SelectorTypes.DataSource; break;
+		case "DESCRIPTION":							type = SelectorTypes.Description; break;
+		case "PARENT":								type = SelectorTypes.Parent; break;
+		case "THEME":								type = SelectorTypes.Theme; break;
+		case "HOUR":	    						type = SelectorTypes.Hour; break;
+		case "MINUTE":	    						type = SelectorTypes.Minute; break;
+		case "MONTH":	    						type = SelectorTypes.Month; break;
+		case "YEAR":	    						type = SelectorTypes.Year; break;
+		case "DAY":	   			    			    type = SelectorTypes.Day; break;
+		case "DATASET":		    					type = SelectorTypes.Dataset; break;
+		case "IMPORTANCE":							type = SelectorTypes.Importance; break;
+		case "CREATED":	    						type = SelectorTypes.Created; break;
+		case "ISCOMMENT":							type = SelectorTypes.IsComment; break;
+		case "INFLUENCE":							type = SelectorTypes.Influence;  break;
+		case "FOLLOWERS":							type = SelectorTypes.Followers;  break;
+		case "KLOUTSCORE":							type = SelectorTypes.KloutScore; break;
+		case "INSTANCETYPE":						type = SelectorTypes.InstanceType; break;
+		case "IGNOREDESCRIPTION":					type = SelectorTypes.IgnoreDescription; break;
+		case "ID":									type = SelectorTypes.Id; break;
+		case "DOMAIN":								type = SelectorTypes.Domain; break;
+		case "ANYFIELD":							
+		default:									type = SelectorTypes.AnyField; break;
+	}
+
+	return type;
+}
+
+IGNORECASE
+
+CHARACTERS
+Numbers = '0' .. '9'.
+WordPart = 'A'..'Z' + 'a'..'z' + '#'.
+WordPartWithNumbers = 'A'..'Z' + 'a'..'z' + '#' + Numbers. 
+SpecialCharacters = '!' + '@' + '#' + '$' + '%' + '^' + '&' + '*' + '(' + ')' + '_' + '+' + '-' + '/' + '{' + '}' + '.' + '\\' + ':' + '[' + ']' + '\''.
+PhrasePart = ' ' + WordPart + SpecialCharacters + Numbers.
+DoubleQuote = '"'.
+CarriageReturn = '\r'.
+LineFeed = '\n'.
+IdSelector = '@'.
+Point = '.'.
+
+TOKENS
+
+Number = ['-'] Numbers {Numbers}.
+Word = WordPart {WordPartWithNumbers}.
+Phrase = DoubleQuote {PhrasePart} DoubleQuote.
+Id = IdSelector Numbers {Numbers}. 
+Range = (DoubleQuote {PhrasePart} DoubleQuote | WordPart {WordPartWithNumbers} | ['-'] Numbers {Numbers} ['.' Numbers {Numbers}]) ".." (DoubleQuote {PhrasePart} DoubleQuote | WordPart {WordPartWithNumbers} | ['-'] Numbers {Numbers} ['.' Numbers {Numbers}] ).
+Not = "NOT".
+OpenGroup = '('.
+CloseGroup = ')'.
+RangeSeparator = "TO".
+And = "AND".
+Or = "OR".
+Get = "GET".
+Set = "SET".
+Chart = "CHART".
+Where = "WHERE".
+Colon = ':'.
+Comma = ','.
+Order = "ORDERED".
+Interval = "INTERVAL".
+By = "BY".
+Desc = "DESC".
+Limit = "LIMIT".
+Over = "OVER".
+Top = "TOP".
+Bottom = "BOTTOM".
+Via = "VIA".
+
+PRAGMAS
+
+IGNORE CarriageReturn + LineFeed
+
+PRODUCTIONS
+
+EvoQL										
+=											
+	(										(. GetExpression expression = new GetExpression(); RootTree = expression; .)
+		Get										
+		Word								(. expression.AddType(GetGetType(t.val)); .)
+		{
+			Comma
+			Word							(. expression.AddType(GetGetType(t.val)); .)
+		}
+		[
+			Order
+			By
+			Phrase							(. expression.Ordering = t.val.Substring(1, t.val.Length - 2); .)
+			[
+				Desc						(. expression.OrderDescending = true; .)
+			]
+			[
+				Limit
+				Number						(. expression.Take = Int32.Parse(t.val); .)
+				[
+					Comma
+					Number					(. expression.Skip = expression.Take; expression.Take = Int32.Parse(t.val); .)
+				]
+			]
+		]
+
+		[
+			[Where]							(. ConditionGroup conditions = new ConditionGroup(); RootTree.SetChild(conditions); .)
+			Conditional<conditions>
+			{
+				Conditional<conditions>
+			}
+		]
+	)
+	|
+	(										(. GetExpression expression = new GetExpression(); RootTree = expression; expression.IsChart=true; .)
+		Chart
+		[
+			Word							(. expression.Select = t.val; .)
+			[
+				By 
+				[
+					(
+						
+						Top					(. expression.GroupByDescending = true; .)
+						|
+						Bottom				(. expression.GroupByDescending = false; .)
+					)
+					Number					(. expression.GroupByTake = Int32.Parse(t.val); .)
+				]
+				Word						(. expression.GroupBy = t.val; .)
+				[
+					Via
+					Word				    (. expression.GroupByOrderBy = t.val; .)
+				]
+				[
+					Interval
+					(
+						Word				(. expression.GroupByInterval = t.val; .)
+						|
+						Number				(. expression.GroupByInterval = t.val; .)
+					)
+				]
+			]
+			[
+				Over 
+				[
+					(
+						Top					(. expression.GroupOverDescending = true; .) 
+						|
+						Bottom				(. expression.GroupOverDescending = false; .)
+					)
+					Number					(. expression.GroupOverTake = Int32.Parse(t.val); .)
+				]
+				Word						(. expression.GroupOver = t.val; .)
+				[
+					Via
+					Word				    (. expression.GroupOverOrderBy = t.val; .)
+				]
+				[
+					Interval
+					(
+						Word				(. expression.GroupOverInterval = t.val; .)
+						|
+						Number				(. expression.GroupOverInterval = t.val; .)
+					)
+				]
+			]
+		]										
+		[
+			[Where]							(. ConditionGroup conditions = new ConditionGroup(); RootTree.SetChild(conditions); .)
+			Conditional<conditions>
+			{
+				Conditional<conditions>
+			}
+		]
+	)
+	|
+	(										(. GetExpression expression = new GetExpression(); RootTree = expression; ConditionGroup conditions = new ConditionGroup(); RootTree.SetChild(conditions); .)
+		Conditional<conditions>
+		{
+			Conditional<conditions>
+		}
+	)
+	|
+	(										(. SetExpression expression = new SetExpression(); RootTree = expression; .)
+		Set
+		SetAction<expression>				
+		{
+			SetAction<expression>			
+		}
+	)
+.
+
+Conditional<MultiNodeTree parent>			(. ExpressionTreeBase addTo = parent; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	{										(. 
+												lastOperation = lastOperation ?? new AndCondition();
+												MultiAdd(addTo, lastOperation);
+												addTo = lastOperation;
+											.)
+		[
+			Not								(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+		]
+		(
+			Condition<lastOperation>
+			|
+			ConditionGroup<lastOperation>
+		)					
+		[
+			Operation<out lastOperation>	
+		]									(. else { lastOperation = null; } .)
+											
+	}										(. if (lastOperation != null && lastOperation.Child == null) SemErr("Invalid Condition"); .)
+.
+
+SetAction<SetExpression parent>				(. SetterTypes setterType; .)			
+=
+	Setter<out setterType>				(. SetterExpression setter = new SetterExpression(setterType);  .)	
+										(. parent.AddSetter(setter); .)
+	Literal<setter>
+.
+
+
+Condition<SingleNodeTree parent>			(. SelectorTypes selectorType; ModifierTypes modifierType; .)			
+=
+	IF(FollowedByColon()) 
+	(
+		Selector<out selectorType, 
+					out modifierType>		(. SelectorExpression selector = new SelectorExpression(selectorType, modifierType);  .)
+		(
+			ComplexCondition<parent, selector>
+			|								(. parent.SetChild(selector); .)
+			Literal<selector>
+		)
+	)
+	|										(. SelectorExpression nestedSelector = new SelectorExpression(SelectorTypes.Unspecified, ModifierTypes.Equals); parent.SetChild(nestedSelector); .)
+	Literal<nestedSelector>
+.
+
+ConditionGroup<SingleNodeTree parent>		(. ConditionGroup group = new ConditionGroup(); parent.SetChild(group); ExpressionTreeBase addTo = group; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	OpenGroup
+	{										(. 
+												lastOperation = lastOperation ?? new AndCondition();
+												MultiAdd(addTo, lastOperation);
+												addTo = lastOperation;
+											.)
+		[
+			Not								(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+		]
+		(
+			Condition<lastOperation>
+			|
+			ConditionGroup<lastOperation>
+		)					
+		[
+			Operation<out lastOperation>
+		]									(. else { lastOperation = null; } .)
+	}										(. if (lastOperation != null && lastOperation.Child == null) SemErr("Invalid Condition"); .)
+	CloseGroup								
+.
+
+ComplexCondition<SingleNodeTree parent, SelectorExpression selector>(. ConditionGroup group = new ConditionGroup(); parent.SetChild(group); ExpressionTreeBase addTo = group; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	OpenGroup
+	{										
+												(. 
+													lastOperation = lastOperation ?? new AndCondition();
+													MultiAdd(addTo, lastOperation);
+													addTo = lastOperation;
+													selector = new SelectorExpression(selector.Field, ModifierTypes.Equals);
+												.)
+		(
+			(
+				[
+				(Not ":")						(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+				]					
+				(
+					ComplexCondition<lastOperation, selector>
+					|							(. SelectorExpression nestedSelector = new SelectorExpression(selector.Field, ModifierTypes.Equals); MultiAdd(lastOperation, nestedSelector); .)
+					Literal<nestedSelector>
+				)
+			)
+			[
+				Operation<out lastOperation>
+			]									(. else { lastOperation = null; } .)
+		)
+	}
+	CloseGroup
+.
+
+Literal<SingleNodeTree parent>
+=	
+	Range										(. parent.SetChild(new RangeExpression(t.val)); .)
+	|
+	Word										(. parent.SetChild(new LiteralExpression(t.val)); .)
+	|
+	Phrase										(. parent.SetChild(new LiteralExpression(t.val.Substring(1, t.val.Length - 2), true)); .)
+	|
+	Id											(. parent.SetChild(new ValueExpression(Int32.Parse(t.val.Substring(1)))); .)
+	|
+	Number										(. parent.SetChild(new LiteralExpression(t.val)); .)
+.
+
+Operation<out ConditionalExpression expression>	(. expression = null; .)
+= 
+	And											(. expression = new AndCondition(); .)		
+	| 
+	Or											(. expression = new OrCondition(); .)
+.
+
+Selector<out SelectorTypes selectorType, 
+			out ModifierTypes modifierType>		(. SelectorTypes type; ModifierTypes modifierResult; .)			
+= 
+	Word										(. selectorType = GetSelectorType(t.val); .)
+	Modifier<out modifierResult>				(. modifierType = modifierResult; .)	
+.
+
+Setter<out SetterTypes setterType>				(. SetterTypes type; .)			
+= 
+	Word										(. setterType = GetSetterType(t.val); .)
+	":"
+.
+
+Modifier<out ModifierTypes type>				(. type = ModifierTypes.Equals; .)
+=
+	":"											(. type = ModifierTypes.Equals; .)
+	| "<"										(. type = ModifierTypes.LessThan; .)
+	| ">"										(. type = ModifierTypes.GreaterThan; .)
+.
+
+END EvoQL.

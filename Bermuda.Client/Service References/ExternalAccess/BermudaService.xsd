@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Bermuda.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Bermuda.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfMention">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Mention" nillable="true" type="tns:Mention" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMention" nillable="true" type="tns:ArrayOfMention" />
+  <xs:complexType name="Mention">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CreatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatedOnTicks" type="xs:long" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Datasources" nillable="true" type="q1:ArrayOflong" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Guid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Influence" type="xs:double" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccurredOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="OccurredOnDayTicks" type="xs:long" />
+      <xs:element minOccurs="0" name="OccurredOnTicks" type="xs:long" />
+      <xs:element minOccurs="0" name="OccurredOnYearTicks" type="xs:long" />
+      <xs:element minOccurs="0" name="Sentiment" type="xs:double" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tags" nillable="true" type="q2:ArrayOfint" />
+      <xs:element minOccurs="0" name="Type" type="xs:long" />
+      <xs:element minOccurs="0" name="UpdatedOn" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UpdatedOnTicks" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Mention" nillable="true" type="tns:Mention" />
+  <xs:complexType name="BermudaNodeStatistic">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChildNodes" nillable="true" type="tns:ArrayOfBermudaNodeStatistic" />
+      <xs:element minOccurs="0" name="Completed" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Error" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FilteredItems" type="xs:int" />
+      <xs:element minOccurs="0" name="Initiated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LinqExecutionTime" type="ser:duration" />
+      <xs:element minOccurs="0" name="NodeId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Notes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OperationTime" type="ser:duration" />
+      <xs:element minOccurs="0" name="ReducedItems" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalItems" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BermudaNodeStatistic" nillable="true" type="tns:BermudaNodeStatistic" />
+  <xs:complexType name="ArrayOfBermudaNodeStatistic">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BermudaNodeStatistic" nillable="true" type="tns:BermudaNodeStatistic" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBermudaNodeStatistic" nillable="true" type="tns:ArrayOfBermudaNodeStatistic" />
+  <xs:complexType name="ArrayOfDatapoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Datapoint" nillable="true" type="tns:Datapoint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDatapoint" nillable="true" type="tns:ArrayOfDatapoint" />
+  <xs:complexType name="Datapoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Count" type="xs:long" />
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Id2" type="xs:long" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Text2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:long" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Datapoint" nillable="true" type="tns:Datapoint" />
+</xs:schema>

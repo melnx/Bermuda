@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0EF25A32-6F4A-44F7-B461-D45132500617}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bermuda.Interface</RootNamespace>
+    <AssemblyName>Bermuda.Interface</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Bermuda.Interface.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connection.External\ExternalServiceClient.cs" />
+    <Compile Include="Connection.External\IExternalService.cs" />
+    <Compile Include="Connection.Internal\BermudaServiceClient.cs" />
+    <Compile Include="Connection.Internal\IBermudaService.cs" />
+    <Compile Include="Entities.cs" />
+    <Compile Include="IFileProcessor.cs" />
+    <Compile Include="IHostEnvironmentConfiguration.cs" />
+    <Compile Include="IHostEnvironment.cs" />
+    <Compile Include="IBucket.cs" />
+    <Compile Include="IBucketDataTable.cs" />
+    <Compile Include="ICatalog.cs" />
+    <Compile Include="ICatalogDataTable.cs" />
+    <Compile Include="ICatalogMetadata.cs" />
+    <Compile Include="IColumnMetadata.cs" />
+    <Compile Include="IComputeNode.cs" />
+    <Compile Include="IDataItem.cs" />
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="IDataTable.cs" />
+    <Compile Include="ILineProcessor.cs" />
+    <Compile Include="INetCom.cs" />
+    <Compile Include="INetComConsumer.cs" />
+    <Compile Include="IPeerInfo.cs" />
+    <Compile Include="IReferenceDataTable.cs" />
+    <Compile Include="IRelationshipMetadata.cs" />
+    <Compile Include="IDataProcessor.cs" />
+    <Compile Include="ITableMetadata.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bermuda.Interface.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bermuda.Constants\Bermuda.Constants.csproj">
+      <Project>{0E4761E9-1D7E-456B-8BFE-5DA44F6BB425}</Project>
+      <Name>Bermuda.Constants</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

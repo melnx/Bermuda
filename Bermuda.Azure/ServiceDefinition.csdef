@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="Bermuda.Azure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="Bermuda.Azure.WebRole" vmsize="ExtraLarge" enableNativeCodeExecution="true">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="ExternalHTTPEndpoint" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="ExternalHTTPEndpoint" protocol="http" port="8080" />
+      <InternalEndpoint name="InternalTCPEndpoint" protocol="tcp" />
+      <InputEndpoint name="ExternalTCPEndpoint" protocol="tcp" port="13866" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
+    <LocalResources>
+      <LocalStorage name="Bermuda.Service.svclog" sizeInMB="1000" cleanOnRoleRecycle="false" />
+    </LocalResources>
+    <ConfigurationSettings>
+      <Setting name="CloudDir" />
+      <Setting name="StorageAccount.ConnectionString" />
+    </ConfigurationSettings>
+  </WebRole>
+</ServiceDefinition>

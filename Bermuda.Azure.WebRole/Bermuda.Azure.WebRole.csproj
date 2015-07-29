@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{24EF056C-610C-452B-B8C9-369407B95DCD}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bermuda.Azure.WebRole</RootNamespace>
+    <AssemblyName>Bermuda.Azure.WebRole</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client">
+      <HintPath>..\..\..\..\..\..\Program Files\Windows Azure AppFabric SDK\V1.5\Assemblies\NET4.0\Cache\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core">
+      <HintPath>..\..\..\..\..\..\Program Files\Windows Azure AppFabric SDK\V1.5\Assemblies\NET4.0\Cache\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.DistributedCache">
+      <HintPath>..\..\..\..\..\..\Program Files\Windows Azure AppFabric SDK\V1.5\Assemblies\NET4.0\Cache\Microsoft.Web.DistributedCache.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.WindowsFabric.Common">
+      <HintPath>..\..\..\..\..\..\Program Files\Windows Azure AppFabric SDK\V1.5\Assemblies\NET4.0\Cache\Microsoft.WindowsFabric.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Data.Common">
+      <HintPath>..\..\..\..\..\..\Program Files\Windows Azure AppFabric SDK\V1.5\Assemblies\NET4.0\Cache\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AzureLocalStorageTraceListener.cs" />
+    <Compile Include="AzureHostEnvironmentConfiguration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRole.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bermuda.Catalog\Bermuda.Catalog.csproj">
+      <Project>{E7BB0473-3FD3-488C-BFDE-A61066E6A813}</Project>
+      <Name>Bermuda.Catalog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.Constants\Bermuda.Constants.csproj">
+      <Project>{0E4761E9-1D7E-456B-8BFE-5DA44F6BB425}</Project>
+      <Name>Bermuda.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.DatabaseSaturator\Bermuda.DatabaseSaturator.csproj">
+      <Project>{99D0FC4E-11B8-45B7-8F90-68E16984AEFA}</Project>
+      <Name>Bermuda.DatabaseSaturator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.Core\Bermuda.Core.csproj">
+      <Project>{0CFF97DB-E9B6-44D7-8768-791F5F9DAE4A}</Project>
+      <Name>Bermuda.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.DataPurge\Bermuda.DataPurge.csproj">
+      <Project>{1EA89F3E-1B08-4BE8-8BE8-2967DD8155B0}</Project>
+      <Name>Bermuda.DataPurge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.FileSaturator\Bermuda.FileSaturator.csproj">
+      <Project>{F17C58EC-C960-43E3-A438-D91C5405A611}</Project>
+      <Name>Bermuda.FileSaturator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.Interface\Bermuda.Interface.csproj">
+      <Project>{0EF25A32-6F4A-44F7-B461-D45132500617}</Project>
+      <Name>Bermuda.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.NetSaturator\Bermuda.NetSaturator.csproj">
+      <Project>{873C6F52-7AF1-4D5E-8B9C-8C3B764ACF13}</Project>
+      <Name>Bermuda.NetSaturator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.S3Saturator\Bermuda.S3Saturator.csproj">
+      <Project>{FBB1AF55-7CDE-4D30-B329-2D0A30B0DC4D}</Project>
+      <Name>Bermuda.S3Saturator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpressionSerialization\ExpressionSerialization.csproj">
+      <Project>{01ABE4DB-4ABE-4B0E-878B-B42A8C9B6560}</Project>
+      <Name>ExpressionSerialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\thrift-0.8.0\lib\csharp\src\Thrift.csproj">
+      <Project>{499EB63C-D74C-47E8-AE48-A2FC94538E9D}</Project>
+      <Name>Thrift</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>13866</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/Bermuda.Service</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <EnableWcfTestClientForSVCDefaultValue>True</EnableWcfTestClientForSVCDefaultValue>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

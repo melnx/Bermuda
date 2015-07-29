@@ -1,0 +1,167 @@
+﻿<Window x:Class="Bermuda.BermudaConfig.TableConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TableConfig" Height="600" Width="525"
+        Background="AliceBlue"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+         WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="115"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+            <Label Content="Table Name" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding Table.TableName}"/>
+            <Label Content="Base Query" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Table.Query}"/>
+            <Label Content="Filter" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Table.Filter}"/>
+            <Label Content="Order By" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Table.OrderBy}"/>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Primary Key" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding DataContext.Columns.View}" DisplayMemberPath="FieldMapping" SelectedItem="{Binding PrimaryKey}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <Label Content="Mod Field" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Margin="5"/>
+                <ComboBox Grid.Column="3" Grid.Row="0" ItemsSource="{Binding DataContext.Columns.View}" DisplayMemberPath="ColumnName" SelectedItem="{Binding ModField}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <Label Content="Items Per Query" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+                <TextBox VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Table.MaxSaturationItems}"/>
+                <Label Content="Check Frequency" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="5"/>
+                <TextBox VerticalAlignment="Center" Grid.Row="1" Grid.Column="3" Margin="5" Text="{Binding Table.SaturationFrequency}"/>
+                <Label Content="Reference Table" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+                <ComboBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding DataContext.BoolValues}" SelectedItem="{Binding ReferenceTable}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <Label Content="Fixed Width" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Margin="5"/>
+                <ComboBox Grid.Column="3" Grid.Row="2" ItemsSource="{Binding DataContext.BoolValues}" SelectedItem="{Binding IsFixedWidth}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <Label Content="Column Delimiters" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
+                <TextBox VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding ColumnDelimiters}"/>
+                <Label Content="Header Row Count" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Margin="5"/>
+                <TextBox VerticalAlignment="Center" Grid.Row="3" Grid.Column="3" Margin="5" Text="{Binding Table.HeaderRowCount}"/>
+                <Label Content="Line Delimiters" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="5"/>
+                <TextBox VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding LineDelimiters}"/>
+            </Grid>
+            
+            <Label Content="Update Field" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Margin="5"/>
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="cbUpdateCol" Grid.Column="0" ItemsSource="{Binding DataContext.Columns.View}" DisplayMemberPath="ColumnName" SelectedItem="{Binding UpdateColumn}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <ComboBox Name="cbUpdateCompare" Grid.Column="1" ItemsSource="{Binding DataContext.Comparators}" SelectedItem="{Binding Table.SaturationUpdateComparator}" Margin="5"  IsSynchronizedWithCurrentItem="False"/>
+                <Label Content="Last Value" VerticalAlignment="Center" Grid.Column="2" Margin="5"/>
+            </Grid>
+            <Label Content="Delete Field" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Margin="5"/>
+            <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Name="cbDeleteCol" Grid.Column="0" ItemsSource="{Binding DataContext.Columns.View}" DisplayMemberPath="ColumnName" SelectedItem="{Binding DeleteColumn}" Margin="5"  IsSynchronizedWithCurrentItem="False"/>
+                <ComboBox Name="cbDeleteCompare" Grid.Column="1" ItemsSource="{Binding DataContext.Comparators}" SelectedItem="{Binding Table.SaturationDeleteComparator}" Margin="5"  IsSynchronizedWithCurrentItem="False"/>
+                <TextBox VerticalAlignment="Center" Grid.Column="2" Margin="5" Text="{Binding DeleteValue}"/>
+            </Grid>
+            <Label Content="Purge Field" VerticalAlignment="Center" Grid.Row="7" Grid.Column="0" Margin="5"/>
+            <Grid Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <!--<ComboBox Name="cbDeleteType" Grid.Column="0" ItemsSource="{Binding DataContext.SystemTypes}" SelectedItem="{Binding DeleteSystemType}" Margin="5"/>-->
+                <ComboBox Name="cbPurgeCol" Grid.Column="0" ItemsSource="{Binding DataContext.Columns.View}" DisplayMemberPath="ColumnName" SelectedItem="{Binding PurgeColumn}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <!--<TextBox VerticalAlignment="Center" Grid.Column="1" Margin="5" Text="{Binding Table.SaturationDeleteField}"/>-->
+                <ComboBox Name="cbPurgeOperation" Grid.Column="1" ItemsSource="{Binding DataContext.PurgeOperations}" SelectedItem="{Binding Table.SaturationPurgeOperation}" Margin="5" IsSynchronizedWithCurrentItem="False"/>
+                <TextBox VerticalAlignment="Center" Grid.Column="2" Margin="5" Text="{Binding Table.SaturationPurgePercent}"/>
+                <Label Content="%" VerticalAlignment="Center" Grid.Column="3" Margin="5"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Columns" VerticalAlignment="Center" Grid.Column="0" Margin="5,0,0,0"/>
+            <Button Name="btNew" ToolTip="New" Width="25" Height="25" Grid.Column="1" BorderThickness="0" Background="{x:Null}" Click="btNew_Click" BorderBrush="{x:Null}">
+                <Image Source="/Bermuda.BermudaConfig;component/Images/matrixview.png" />
+            </Button>
+            <Button Name="btCopy" ToolTip="Copy" Width="25" Height="25"  Grid.Column="2" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Click="btCopy_Click" IsEnabled="{Binding ValidSelectedColumn}">
+                <Image Source="/Bermuda.BermudaConfig;component/Images/copy.png" />
+            </Button>
+            <Button Name="btDelete" ToolTip="Delete" Width="25" Height="25"  Grid.Column="3" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Click="btDelete_Click" IsEnabled="{Binding ValidSelectedColumn}">
+                <Image Source="/Bermuda.BermudaConfig;component/Images/delete.png" />
+            </Button>
+            <Button Name="btUp" ToolTip="Delete" Width="25" Height="25"  Grid.Column="4" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Click="btUp_Click" IsEnabled="{Binding ValidSelectedColumn}">
+                <Image Source="/Bermuda.BermudaConfig;component/Images/arrow_up.png" />
+            </Button>
+            <Button Name="btDown" ToolTip="Delete" Width="25" Height="25"  Grid.Column="5" BorderThickness="0" BorderBrush="{x:Null}" Background="{x:Null}" Click="btDown_Click" IsEnabled="{Binding ValidSelectedColumn}">
+                <Image Source="/Bermuda.BermudaConfig;component/Images/arrow_down.png" />
+            </Button>
+        </Grid>
+        <ListBox Name="lbColumns" Grid.Row="2" Margin="5" ItemsSource="{Binding Columns.View}" HorizontalContentAlignment="Stretch" IsSynchronizedWithCurrentItem="False" SelectedItem="{Binding SelectedColumn}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="Column Name:" FontWeight="Bold" HorizontalAlignment="Left"/>
+                            <Label Grid.Column="1" Content="{Binding ColumnName}" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnOK" Content="OK" Grid.Column="1" Margin="5" Click="btnOK_Click"/>
+            <Button Name="btnCancel" Content="Cancel" Grid.Column="2" Margin="5" Click="btnCancel_Click"/>
+        </Grid>
+    </Grid>
+</Window>

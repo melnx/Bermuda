@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug_MTDLL|Win32">
+      <Configuration>Debug_MTDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_MTDLL|x64">
+      <Configuration>Debug_MTDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MTDLL|Win32">
+      <Configuration>Release_MTDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_MTDLL|x64">
+      <Configuration>Release_MTDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F8EB9DF1-123A-4BC9-B79B-416A64FA0DC9}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>BermudaCLIDSI</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <ReferencePath>$(SIMBAENGINE_DIR)\bin\win\release;$(SIMBAENGINE_DIR)\bin\win\debug;$(ReferencePath)</ReferencePath>
+    <TargetName>BermudaCLIDSI</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <ReferencePath>C:\Code\EvoApp\Bermuda\Bermuda.ODBCDriver\Bermuda.ODBC.Driver\bin\Debug;$(SIMBAENGINE_DIR)\bin\win\debug;$(SIMBAENGINE_DIR)\bin\win\release;..\Bermuda.ODBC.Driver\bin\Release;$(ReferencePath)</ReferencePath>
+    <TargetName>BermudaCLIDSI</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>BermudaCLIDSI</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\Include;$(SIMBAENGINE_DIR)\Include\CLIDSI;$(SIMBAENGINE_DIR)\Include\DSI;$(SIMBAENGINE_DIR)\Include\DSI\Client;$(SIMBAENGINE_DIR)\Include\Product;$(SIMBAENGINE_DIR)\Include\Support;$(SIMBAENGINE_DIR)\Include\Support\Exceptions;$(SIMBAENGINE_DIR)\Include\Support\TypedDataWrapper;$(SIMBAENGINE_DIR)\Include\SQLEngine;$(SIMBAENGINE_DIR)\Include\SQLEngine\AETree;$(SIMBAENGINE_DIR)\Include\SQLEngine\DSIExt;$(SIMBAENGINE_DIR)\ThirdParty\Expat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SimbaCLIDSI_$(Configuration).lib;User32.lib;SimbaDSI_$(Configuration).lib;SimbaSupport_$(Configuration).lib;SimbaEngine_$(Configuration).lib;SimbaODBC_$(Configuration).lib;shell32.lib;odbccp32.lib</AdditionalDependencies>
+      <ModuleDefinitionFile>Exports.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SIMBAENGINE_DIR)\Lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <PostBuildEvent>
+      <Command>xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\icu\vs2010_32\lib\simbaicudt38_32.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\icu\vs2010_32\lib\simbaicuin38_32.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\icu\vs2010_32\lib\simbaicuuc38_32.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\openssl\VS2010_32\bin\*32.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\ODBCMessages.xml" ..\..\ErrorMessages\en-US\
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\CLIDSIMessages.xml" ..\..\ErrorMessages\en-US\
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\CSCommonMessages.xml" ..\..\ErrorMessages\en-US\
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\ServerMessages.xml" ..\..\ErrorMessages\en-US\
+
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.ODBC.Driver"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.Constants"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.ExpressionGenerator"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.Interface"
+
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.ODBC.Driver.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.Constants.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.ExpressionGenerator.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.Interface.dll"
+</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying ICU DLLs and Error Messages...</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MTDLL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\Include;$(SIMBAENGINE_DIR)\Include\CLIDSI;$(SIMBAENGINE_DIR)\Include\DSI;$(SIMBAENGINE_DIR)\Include\DSI\Client;$(SIMBAENGINE_DIR)\Include\Product;$(SIMBAENGINE_DIR)\Include\Support;$(SIMBAENGINE_DIR)\Include\Support\Exceptions;$(SIMBAENGINE_DIR)\Include\Support\TypedDataWrapper;$(SIMBAENGINE_DIR)\Include\SQLEngine;$(SIMBAENGINE_DIR)\Include\SQLEngine\AETree;$(SIMBAENGINE_DIR)\Include\SQLEngine\DSIExt;$(SIMBAENGINE_DIR)\ThirdParty\Expat;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SimbaCLIDSI_$(Configuration).lib;User32.lib;SimbaDSI_$(Configuration).lib;SimbaSupport_$(Configuration).lib;SimbaEngine_$(Configuration).lib;SimbaODBC_$(Configuration).lib;shell32.lib;odbccp32.lib</AdditionalDependencies>
+      <ModuleDefinitionFile>Exports.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SIMBAENGINE_DIR)\Lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <PostBuildEvent>
+      <Command>xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\icu\vs2010_64\lib\simbaicudt38_64.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\icu\vs2010_64\lib\simbaicuin38_64.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\icu\vs2010_64\lib\simbaicuuc38_64.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ThirdParty\openssl\VS2010_64\bin\*32.dll" "$(TargetDir)"
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\ODBCMessages.xml" ..\..\ErrorMessages\en-US\
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\CLIDSIMessages.xml" ..\..\ErrorMessages\en-US\
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\CSCommonMessages.xml" ..\..\ErrorMessages\en-US\
+xcopy /Y /D "$(SIMBAENGINE_DIR)\ErrorMessages\en-US\ServerMessages.xml" ..\..\ErrorMessages\en-US\
+
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.ODBC.Driver"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.Constants"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.ExpressionGenerator"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Bermuda.Interface"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -u "Newtonsoft.Json"
+
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.ODBC.Driver.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.Constants.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.ExpressionGenerator.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Bermuda.Interface.dll"
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\x64\gacutil" -i "$(SolutionDir)$(Platform)\$(Configuration)\Newtonsoft.Json.dll"
+</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copying ICU DLLs and Error Messages...</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <ModuleDefinitionFile>Exports.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MTDLL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <ModuleDefinitionFile>Exports.def</ModuleDefinitionFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\..\References\Newtonsoft.Json.dll</HintPath>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+    </Reference>
+    <Reference Include="Simba.DotNetDSI" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Bermuda.CLIDSI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Exports.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Bermuda.Constants\Bermuda.Constants.csproj">
+      <Project>{0e4761e9-1d7e-456b-8bfe-5da44f6bb425}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bermuda.ExpressionGenerator\Bermuda.ExpressionGeneration.csproj">
+      <Project>{f52ad907-b8fc-4e20-9925-6324766b3b5b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bermuda.Interface\Bermuda.Interface.csproj">
+      <Project>{0ef25a32-6f4a-44f7-b461-d45132500617}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Bermuda.ODBC.Driver\Bermuda.ODBC.Driver.csproj">
+      <Project>{4370e30d-9aee-45de-a8d0-649873a111bb}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

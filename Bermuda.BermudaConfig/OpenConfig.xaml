@@ -1,0 +1,17 @@
+﻿<Window x:Class="Bermuda.BermudaConfig.OpenConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OpenConfig" Height="200" Width="200"
+         WindowStyle="ToolWindow" Background="AliceBlue"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Name="btnOpenLocal" Content="{Binding LocalLabel, FallbackValue='Open Local'}" Height="30" Width="150" Grid.Row="0" Click="btnOpenLocal_Click"/>
+        <Button Name="btnOpenAzure" Content="{Binding AzureLabel, FallbackValue='Open Azure'}" Height="30" Width="150" Grid.Row="1" Click="btnOpenAzure_Click"/>
+        <Button Name="btnOpenAmazon" Content="{Binding AmazonLabel, FallbackValue='Open Amazon'}" Height="30" Width="150" Grid.Row="2" Click="btnOpenAmazon_Click"/>
+    </Grid>
+</Window>

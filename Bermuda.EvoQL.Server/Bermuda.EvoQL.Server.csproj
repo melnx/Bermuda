@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{96D6DB19-93D4-426E-BCB1-0E1229B47A33}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EvoApp.EvoQL</RootNamespace>
+    <AssemblyName>EvoApp.EvoQL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\EvoApp.EvoQL.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AzureDev|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\EvoApp.EvoQL.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AzureProd|AnyCPU' ">
+    <OutputPath>bin\Azure\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\EvoApp.EvoQL.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\EvoApp.EvoQL\AndCondition.cs">
+      <Link>Linked\AndCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\ConditionalExpression.cs">
+      <Link>Linked\ConditionalExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\ConditionGroup.cs">
+      <Link>Linked\ConditionGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\Converters\ConverterBase.cs">
+      <Link>Linked\Converters\ConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\Converters\ConverterTypeAttribute.cs">
+      <Link>Linked\Converters\ConverterTypeAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\Converters\DateTimeConverter.cs">
+      <Link>Linked\Converters\DateTimeConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\Converters\SentimentConverter.cs">
+      <Link>Linked\Converters\SentimentConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\EvoQL.parser.cs">
+      <Link>Linked\EvoQL.parser.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\EvoQLExpression.cs">
+      <Link>Linked\EvoQLExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\EvoQLMetadata.cs">
+      <Link>Linked\EvoQLMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\ExpressionTreeBase.cs">
+      <Link>Linked\ExpressionTreeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\GetExpression.cs">
+      <Link>Linked\GetExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\GetTypes.cs">
+      <Link>Linked\GetTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\Input.cs">
+      <Link>Linked\Input.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\LiteralExpression.cs">
+      <Link>Linked\LiteralExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\ModifierTypes.cs">
+      <Link>Linked\ModifierTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\MultiNodeTree.cs">
+      <Link>Linked\MultiNodeTree.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\NotCondition.cs">
+      <Link>Linked\NotCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\OrCondition.cs">
+      <Link>Linked\OrCondition.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\RangeExpression.cs">
+      <Link>Linked\RangeExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\RootExpression.cs">
+      <Link>Linked\RootExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\SelectorExpression.cs">
+      <Link>Linked\SelectorExpression.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\SelectorTypes.cs">
+      <Link>Linked\SelectorTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\SingleNodeTree.cs">
+      <Link>Linked\SingleNodeTree.cs</Link>
+    </Compile>
+    <Compile Include="..\EvoApp.EvoQL\ValueExpression.cs">
+      <Link>Linked\ValueExpression.cs</Link>
+    </Compile>
+    <Compile Include="AndCondition.cs" />
+    <Compile Include="ConditionalExpression.cs" />
+    <Compile Include="ConditionGroup.cs" />
+    <Compile Include="EvoQLBuilder.cs" />
+    <Compile Include="ExpressionTreeBase.cs" />
+    <Compile Include="GetExpression.cs" />
+    <Compile Include="LiteralExpression.cs" />
+    <Compile Include="NotCondition.cs" />
+    <Compile Include="OrCondition.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangeExpression.cs" />
+    <Compile Include="RootExpression.cs" />
+    <Compile Include="SelectorExpression.cs" />
+    <Compile Include="ValueExpression.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EvoApp.DomainLayer\EvoApp.DomainLayer.csproj">
+      <Project>{43D26699-9426-480A-9D17-A1D33760902C}</Project>
+      <Name>EvoApp.DomainLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

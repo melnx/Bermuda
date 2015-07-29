@@ -1,0 +1,338 @@
+COMPILER EvoSQL
+
+public RootExpression RootTree { get; private set; } 
+
+bool FollowedByColon()  
+{ 
+	Token x = la; 
+	//while (x.kind == _Word || x.kind == _Phrase) 
+		x = scanner.Peek(); 
+	return x.val == ":" || x.val == "<" || x.val == ">"; 
+}
+
+private void MultiAdd(ExpressionTreeBase parent, ExpressionTreeBase child)
+{
+	if (parent is MultiNodeTree)
+	{
+		((MultiNodeTree)parent).AddChild(child);
+	}
+	else if (parent is ConditionalExpression && child is ConditionalExpression)
+	{
+		((ConditionalExpression)parent).AddCondition((ConditionalExpression)child);
+	}
+	else if (parent is SingleNodeTree)
+	{
+		((SingleNodeTree)parent).SetChild(child); 
+	}
+}
+
+IGNORECASE
+
+CHARACTERS
+Numbers = '0' .. '9'.
+WordPart = 'A'..'Z' + 'a'..'z' + '.'.
+WordPartWithNumbers = 'A'..'Z' + 'a'..'z' + '#' + Numbers. 
+SpecialCharacters = '!' + '@' + '#' + '$' + '%' + '^' + '&' + '*' + '(' + ')' + '_' + '+' + '-' + '/' + '{' + '}' + '.' + '\\' + ':' + '[' + ']' + '\''.
+PhrasePart = ' ' + WordPart + SpecialCharacters + Numbers.
+DoubleQuote = '"'.
+CarriageReturn = '\r'.
+LineFeed = '\n'.
+IdSelector = '@'.
+Point = '.'.
+
+TOKENS
+
+Number = ['-'] Numbers {Numbers}.
+Word = WordPart {WordPartWithNumbers}.
+Phrase = DoubleQuote {PhrasePart} DoubleQuote.
+Id = IdSelector Numbers {Numbers}. 
+Not = "NOT".
+OpenGroup = '('.
+CloseGroup = ')'.
+RangeSeparator = "TO".
+And = "AND".
+Or = "OR".
+Get = "GET".
+Set = "SET".
+Chart = "CHART".
+Where = "WHERE".
+Colon = ':'.
+Comma = ','.
+Order = "ORDERED".
+Interval = "INTERVAL".
+By = "BY".
+Desc = "DESC".
+Limit = "LIMIT".
+Over = "OVER".
+Top = "TOP".
+Bottom = "BOTTOM".
+Via = "VIA".
+As = "AS".
+From = "FROM".
+Select = "SELECT".
+Star = "*".
+On = "ON".
+Group = "GROUP".
+Inner = "INNER".
+Outer = "OUTER".
+Left = "LEFT".
+Right = "RIGHT".
+Join = "JOIN".
+Equals = "=".
+
+PRAGMAS
+
+IGNORE CarriageReturn + LineFeed
+
+PRODUCTIONS
+
+EvoSQL										
+=									
+	(
+		(. var expression = new SelectExpression(); RootTree = expression; .)		
+		SelectBlock<expression>
+	)			
+.
+
+SelectBlock<SelectExpression expression>
+=
+	Select
+	(
+		(
+			SelectPart<expression>
+			{
+				Comma
+				SelectPart<expression>
+			}
+		)
+		|
+		Star						(. var sel = new ExpressionGeneration.SelectDescriptor(); sel.Star = true; .)
+	)
+
+	From										
+
+	(
+		FromSource<expression>		
+		|
+		(							
+									(. var subexpression = new SelectExpression(); .)
+			SelectBlock<subexpression>		
+									(. expression.SetFrom(subexpression); .)
+		)
+	)
+
+	[
+		OrderLimitClause<expression>
+	]
+
+	[
+		Where						(. ConditionGroup conditions = new ConditionGroup(); expression.SetChild(conditions); .)
+		Conditional<conditions>
+		{
+			Conditional<conditions>
+		}
+	]
+
+	[
+		OrderLimitClause<expression>
+	]
+
+	[
+		Group						
+		By
+		Word						(. expression.AddDimension(t.val); .)
+		{
+			Comma
+			Word					(. expression.AddDimension(t.val); .)
+		}
+		OrderLimitClause<expression>
+	]
+.
+
+FromSource<GetExpression expression>
+=
+	Word							(. var col = new ExpressionGeneration.CollectionDescriptor(); expression.AddCollection(col); col.Name = t.val; .)
+	[
+		Word						(. col.Alias = t.val; .)
+	]
+	{
+		(Inner | Outer)
+		[ Left | Right]
+		Join
+
+		Word						(. var col2 = new ExpressionGeneration.CollectionDescriptor(); expression.AddCollection(col); col2.Name = t.val; .)
+		[
+			Word					(. col2.Alias = t.val;  .)
+		]
+
+		On 
+
+		Word
+		Equals
+		Word
+	}
+.
+
+SelectPart<GetExpression expression>
+=
+	Word							(. var sel = new SelectDimensionExpression(); expression.AddSelect(sel); sel.Target = t.val; sel.Source = t.val; .)
+	[								
+		OpenGroup					(. sel.Aggregate = sel.Source; sel.Source = sel.Target = null; .)
+		[
+			Word					(. sel.Source = t.val; .)
+		]
+		CloseGroup
+	]
+	[
+		As
+		Word						(. sel.Target = t.val; .)
+	]
+.
+
+OrderLimitClause<GetExpression expression>
+=
+	[
+		Order
+		By
+		(
+			Phrase						(. expression.Ordering = t.val.Substring(1, t.val.Length - 2); .)
+			|
+			Word						(. expression.Ordering = t.val; .)
+		)
+		[
+			Desc						(. expression.OrderDescending = true; .)
+		]
+		[
+			Limit
+			Number						(. expression.Take = Int32.Parse(t.val); .)
+			[
+				Comma
+				Number					(. expression.Skip = expression.Take; expression.Take = Int32.Parse(t.val); .)
+			]
+		]
+	]
+.
+
+Conditional<MultiNodeTree parent>			(. ExpressionTreeBase addTo = parent; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	{										(. 
+												lastOperation = lastOperation ?? new AndCondition();
+												MultiAdd(addTo, lastOperation);
+												addTo = lastOperation;
+											.)
+		[
+			Not								(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+		]
+		(
+			Condition<lastOperation>
+			|
+			ConditionGroup<lastOperation>
+		)					
+		[
+			Operation<out lastOperation>	
+		]									(. else { lastOperation = null; } .)
+											
+	}										(. if (lastOperation != null && lastOperation.Child == null) SemErr("Invalid Condition"); .)
+.
+
+Condition<SingleNodeTree parent>			(. SelectorTypes selectorType; ModifierTypes modifierType; .)			
+=
+	IF(FollowedByColon()) 
+	(
+		Selector<out selectorType, 
+					out modifierType>		(. SelectorExpression selector = new SelectorExpression(selectorType, modifierType, t.val);  .)
+		(
+			ComplexCondition<parent, selector>
+			|								(. parent.SetChild(selector); .)
+			Literal<selector>
+		)
+	)
+	|										(. SelectorExpression nestedSelector = new SelectorExpression(SelectorTypes.Unspecified, ModifierTypes.Equals, t.val); parent.SetChild(nestedSelector); .)
+	Literal<nestedSelector>
+.
+
+ConditionGroup<SingleNodeTree parent>		(. ConditionGroup group = new ConditionGroup(); parent.SetChild(group); ExpressionTreeBase addTo = group; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	OpenGroup
+	{										(. 
+												lastOperation = lastOperation ?? new AndCondition();
+												MultiAdd(addTo, lastOperation);
+												addTo = lastOperation;
+											.)
+		[
+			Not								(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+		]
+		(
+			Condition<lastOperation>
+			|
+			ConditionGroup<lastOperation>
+		)					
+		[
+			Operation<out lastOperation>
+		]									(. else { lastOperation = null; } .)
+	}										(. if (lastOperation != null && lastOperation.Child == null) SemErr("Invalid Condition"); .)
+	CloseGroup								
+.
+
+ComplexCondition<SingleNodeTree parent, SelectorExpression selector>(. ConditionGroup group = new ConditionGroup(); parent.SetChild(group); ExpressionTreeBase addTo = group; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	OpenGroup
+	{										
+												(. 
+													lastOperation = lastOperation ?? new AndCondition();
+													MultiAdd(addTo, lastOperation);
+													addTo = lastOperation;
+													selector = new SelectorExpression(selector.Field, ModifierTypes.Equals, selector.Path);
+												.)
+		(
+			(
+				[
+					Not							(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+				]					
+				(
+					ComplexCondition<lastOperation, selector>
+					|							(. SelectorExpression nestedSelector = new SelectorExpression(selector.Field, ModifierTypes.Equals, selector.Path); MultiAdd(lastOperation, nestedSelector); .)
+					Literal<nestedSelector>
+				)
+			)
+			[
+				Operation<out lastOperation>
+			]									(. else { lastOperation = null; } .)
+		)
+	}
+	CloseGroup
+.
+
+Literal<SingleNodeTree parent>
+=	
+	Word										(. parent.SetChild(new LiteralExpression(t.val)); .)
+	|
+	Phrase										(. parent.SetChild(new LiteralExpression(t.val.Substring(1, t.val.Length - 2), true)); .)
+	|
+	Id											(. parent.SetChild(new ValueExpression(Int32.Parse(t.val.Substring(1)))); .)
+	|
+	Number										(. parent.SetChild(new LiteralExpression(t.val)); .)
+.
+
+Operation<out ConditionalExpression expression>	(. expression = null; .)
+= 
+	And											(. expression = new AndCondition(); .)		
+	| 
+	Or											(. expression = new OrCondition(); .)
+.
+
+Selector<out SelectorTypes selectorType, 
+			out ModifierTypes modifierType>		(. SelectorTypes type; ModifierTypes modifierResult; .)			
+= 
+	Word										(. selectorType = SelectorTypes.Unknown; .)
+	Modifier<out modifierResult>				(. modifierType = modifierResult; .)	
+.
+
+Modifier<out ModifierTypes type>				(. type = ModifierTypes.Equals; .)
+=
+	"="											(. type = ModifierTypes.Equals; .)
+	| "<"										(. type = ModifierTypes.LessThan; .)
+	| ">"										(. type = ModifierTypes.GreaterThan; .)
+.
+
+END EvoSQL.

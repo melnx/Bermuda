@@ -1,0 +1,625 @@
+COMPILER EvoQL
+
+public RootExpression RootTree { get; private set; } 
+
+bool FollowedByColon()  
+{ 
+	Token x = la; 
+	//while (x.kind == _Word || x.kind == _Phrase) 
+		x = scanner.Peek(); 
+	return x.val == ":" || x.val == "<" || x.val == ">" || x.val == "=" || x.val.ToUpper() == "LIKE"; 
+}
+
+private void MultiAdd(ExpressionTreeBase parent, ExpressionTreeBase child)
+{
+	if (parent is MultiNodeTree)
+	{
+		((MultiNodeTree)parent).AddChild(child);
+	}
+	else if (parent is ConditionalExpression && child is ConditionalExpression)
+	{
+		((ConditionalExpression)parent).AddCondition((ConditionalExpression)child);
+	}
+	else if (parent is SingleNodeTree)
+	{
+		((SingleNodeTree)parent).SetChild(child);  
+	}
+}
+
+IGNORECASE
+
+CHARACTERS
+Numbers = '0' .. '9'.
+WordPart = 'A'..'Z' + 'a'..'z' + '#' + "_". 
+WordPartWithNumbers = 'A'..'Z' + 'a'..'z' + '#' + "_" + Numbers. 
+SpecialCharacters = '!' + '@' + '#' + '$' + '%' + '^' + '&' + '*' + '(' + ')' + '_' + '+' + '-' + '/' + '{' + '}' + '.' + '\\' + ':' + '[' + ']' + '\''.
+PhrasePart = ' ' + WordPart + SpecialCharacters + Numbers.
+DoubleQuote = '"'.
+CarriageReturn = '\r'.
+LineFeed = '\n'.
+IdSelector = '@'.
+Point = '.'.
+
+TOKENS
+
+Number = ['-'] Numbers {Numbers}.
+Float = ['-'] Numbers {Numbers} Point Numbers {Numbers}.
+Word = WordPart {WordPartWithNumbers}.
+Phrase = DoubleQuote {PhrasePart} DoubleQuote.
+Id = IdSelector Numbers {Numbers}. 
+Not = "NOT".
+OpenGroup = '('.
+CloseGroup = ')'.
+OpenBrace = '{'.
+CloseBrace = '}'.
+Fn = "FN".
+RangeSeparator = "TO".
+And = "AND".
+Or = "OR".
+Get = "GET".
+Where = "WHERE".
+Colon = ':'.
+Comma = ','.
+Order = "ORDERED".
+By = "BY".
+Desc = "DESC".
+Limit = "LIMIT".
+Over = "OVER".
+Top = "TOP".
+In = "IN".
+Bottom = "BOTTOM".
+Via = "VIA".
+As = "AS".
+Select = "SELECT".
+Group = "GROUP".
+Star = "*".
+From = "FROM".
+Having = "HAVING".
+Like = "LIKE".
+Range = 
+	(
+		DoubleQuote {PhrasePart} DoubleQuote					
+		| 
+		WordPart {WordPartWithNumbers} 
+		| 
+		['-'] Numbers {Numbers} ['.' Numbers {Numbers}]
+	) 
+	".." 
+	(
+		DoubleQuote {PhrasePart} DoubleQuote 
+		| 
+		WordPart {WordPartWithNumbers} 
+		| 
+		['-'] Numbers {Numbers} ['.' Numbers {Numbers}] 
+	)
+.
+
+
+PRAGMAS
+
+IGNORE CarriageReturn + LineFeed
+
+PRODUCTIONS
+
+EvoQL										
+=	
+											(. GetExpression expression = new GetExpression(); RootTree = expression; .)	
+	EqlClause<expression>			
+	|						
+											(. GetExpression expression = new GetExpression(); RootTree = expression; .)	
+	QlClause<expression>
+
+	|
+	(										(. 
+												GetExpression expression = new GetExpression(); RootTree = expression; 
+												ConditionGroup conditions = new ConditionGroup(); RootTree.SetChild(conditions); 
+											.)
+		Unary<conditions, false>
+		{
+			Unary<conditions, false>
+		}
+	)
+.
+
+EqlClause<GetExpression expression>
+=
+	[
+		GetClause<expression>
+	]
+										
+	[
+		OptionalWhereClause<expression>
+	]
+.
+
+QlClause<GetExpression expression>
+=
+	[
+		SelectClause<expression>							
+	] 
+
+	[
+		FromClause<expression>
+	]
+	
+	[
+		WhereClause<expression>
+	]	
+	
+	[
+		OrderClause<expression>
+	]
+.
+
+OrderClause<GetExpression expression>
+=
+	Order
+	By
+												(. var ordering = new DimensionExpression(); expression.Ordering = ordering; .)
+	Primary<ordering, true>
+	[
+		Desc									(. expression.OrderDescending = true; .)
+	]
+	[
+		Limit
+		Number									(. expression.Take = Int32.Parse(t.val); .)
+		[
+			Comma
+			Number								(. expression.Skip = expression.Take; expression.Take = Int32.Parse(t.val); .)
+		]
+	]
+.
+
+SelectClause<GetExpression expression>
+=
+	Select
+
+	[
+		Top
+		Number									(. expression.Take = Int32.Parse(t.val); .)
+	]
+
+	[
+		[
+												(. var argList = new ArgumentListExpression(); argList.SetParent(expression); .)
+			SelectField<argList>
+			{
+				Comma							
+				SelectField<argList>
+			}
+												(. expression.AddSelects(argList.GetChildren()); .)
+		]
+
+		[
+			FromClause<expression>
+		]	
+
+		[
+			GroupByClause<expression>
+		]
+	]			
+.
+
+SelectField<ArgumentListExpression expression, DimensionExpression dimensionToUse = null>
+=
+	(. 
+	var selLol = dimensionToUse ?? new DimensionExpression(); 
+    if(expression != null) 
+	{
+		selLol.SetParent(expression);  
+		expression.AddArgument(selLol); 
+	}
+	.)
+
+
+	[
+		(
+			Not							(. selLol.IsNotted = true; .)
+			|
+			"-"							(. selLol.IsNegated = true; .)
+		)						
+		[Colon]							
+	]
+
+	Condition<selLol, null, true>				
+	
+	(. 
+	var selectorChild = selLol.Child as SelectorExpression;
+    if (expression != null && selectorChild != null)
+    {
+        var selectorChildRightDimension = selectorChild.Right as DimensionExpression;
+        if (selectorChildRightDimension != null && selectorChild.Left == null)
+        {
+            selectorChildRightDimension.Target = selectorChild.Target;
+			selectorChildRightDimension.IsNegated = selLol.IsNegated;
+            selectorChildRightDimension.IsNotted = selLol.IsNotted;
+            expression.AddArgument(selectorChildRightDimension);
+            expression.RemoveArgument(selLol);
+        }
+    }
+	.)
+
+.
+
+GroupByClause<GetExpression expression>
+=
+	Group By					
+												(. 
+													var groupByDimension = new DimensionExpression(); 
+													expression.AddDimension(groupByDimension); 
+												.)
+	GroupByField<groupByDimension>
+	{
+		Comma
+												(. 
+													var groupByDimension2 = new DimensionExpression(); 
+													expression.AddDimension(groupByDimension2); 
+												.)
+		GroupByField<groupByDimension2>
+	}
+
+	[
+		HavingClause<expression>
+	]
+.
+
+HavingClause<GetExpression expression>
+=
+	Having
+												(. 
+													var having = new HavingExpression();
+													ConditionGroup conditions = new ConditionGroup(); 
+													expression.SetHaving(having); 
+													having.SetChild(conditions); 
+												.)
+	Unary<conditions, false>
+	{
+		Unary<conditions, false>
+	}
+.
+
+GetClause<GetExpression expression>
+=
+	Get
+
+	Word										(. expression.AddGet(t.val); .)
+	{
+		Comma
+		Word									(. expression.AddGet(t.val); .)
+	}	
+.
+
+FromClause<GetExpression expression>
+=
+	From
+
+	(
+		
+												(. GetExpression subselect = new GetExpression(); expression.Subselect = subselect; .)	
+		OpenGroup
+		QlClause<subselect>
+		CloseGroup
+
+		|
+
+												(. var identifier = new IdentifierExpression(); string alias = null; .)
+		Identifier<identifier>					
+		[
+			[As]
+			AliasClause<ref alias>
+		]
+												(. expression.AddCollection(identifier.LastPart, alias); .)
+
+		{
+			Comma
+												(. var identifier2 = new IdentifierExpression(); string alias2 = null; .)
+			Identifier<identifier>				
+			[
+				[As]
+				AliasClause<ref alias>
+			]
+												(. expression.AddCollection(identifier2.LastPart, alias2); .)
+		}
+	)
+.
+
+OptionalWhereClause<SingleNodeTree tree>
+=
+												(. var conditions = new ConditionGroup(); tree.SetChild(conditions); .)
+	[Where]									
+	Unary<conditions, false>
+	{
+		Unary<conditions, false>
+	}	
+.
+
+WhereClause<SingleNodeTree tree>
+=
+												(. var conditions = new ConditionGroup(); tree.SetChild(conditions); .)
+	Where									
+	Unary<conditions, false>
+	{
+		Unary<conditions, false>
+	}	
+.
+
+Primary<DimensionExpression sel, bool? isAsOptional>
+=
+
+
+		
+
+											(. var identifier = new IdentifierExpression(); .)
+	Identifier<identifier>					(. sel.Source = identifier.LastPart; sel.SourceType = typeof(string); sel.IsQuoted = identifier.IsQuoted; .)
+	
+	[
+											(. sel.Function = sel.Source; sel.Source = null; .)
+		OpenGroup
+		[
+											(. var argList = new ArgumentListExpression(); argList.SetParent(sel); sel.IsFunctionCall = true; .)
+			SelectField<argList>
+			{
+				Comma
+				SelectField<argList>
+			}
+											(. sel.AddArguments(argList.GetChildren()); .)
+		]
+		CloseGroup
+	]
+
+
+	|
+
+	OpenBrace
+	Fn
+	Primary<sel, null>
+	CloseBrace
+
+	|
+	Number									(. sel.Source = t.val; sel.SourceType = typeof(long); .)
+	|
+	Float									(. sel.Source = t.val; sel.SourceType = typeof(double); .)
+	|
+	Phrase									(. sel.Source = t.val.Substring(1, t.val.Length - 2); sel.SourceType = typeof(string); sel.IsQuoted = true; .)
+	
+.
+
+AliasClause<ref string alias>
+=
+	(
+		Word								(. alias = t.val; .)
+		|
+		Phrase								(. alias = t.val.Substring(1, t.val.Length-2); .)	
+	)
+.
+
+GroupByField<DimensionExpression expression>
+=
+	[
+		(		
+			Top									(. expression.OrderDescending = true; .)
+			|
+			Bottom								(. expression.OrderDescending = false; .)
+		)
+		Number									(. expression.Take = Int32.Parse(t.val); .)
+	]
+										
+	SelectField<null, expression>
+
+	[
+												(. var inClause = new InExpression(); expression.InClause = inClause; .)
+		InClause<inClause>
+	]
+
+	[
+		Via									
+
+
+												(. var dim = new DimensionExpression(); .)
+		Primary<dim, false>				(. expression.Ordering = dim; .)
+	]
+.
+
+Identifier<IdentifierExpression expression>
+=
+	(
+		Word									(. expression.Parts.Add(t.val); .)
+		|
+		Phrase									(. expression.Parts.Add(t.val.Substring(1, t.val.Length-2)); expression.IsQuoted=true; .)
+		|
+		Star									(. expression.Parts.Add(t.val); .)
+	)
+	{
+		"." 
+		(
+			Word								(. expression.Parts.Add(t.val); .)
+			|
+			Phrase								(. expression.Parts.Add(t.val.Substring(1, t.val.Length-2)); expression.IsQuoted=false; .)
+			|
+			Star								(. expression.Parts.Add(t.val); .)
+		)
+	}
+.
+
+InClause<InExpression inExpression>
+=
+	In											
+	OpenGroup									(. ExpressionTreeBase lit = null; .)
+	LiteralExpression<ref lit>					(. inExpression.AddItem(lit); .) 
+	{
+		Comma									(. ExpressionTreeBase lit2 = null; .)
+		LiteralExpression<ref lit2>				(. inExpression.AddItem(lit2); .)
+	}
+	CloseGroup
+.
+
+Unary<MultiNodeTree parent, bool? isAsOptional>
+												(. ExpressionTreeBase addTo = parent; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	{											(. 
+													lastOperation = lastOperation ?? new AndCondition();
+													MultiAdd(addTo, lastOperation);
+													addTo = lastOperation;
+												.)
+		[
+			(Not | "-")
+			[ Colon ]							(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+		]
+		(
+			Condition<lastOperation, null, isAsOptional>
+			|
+			ConditionGroup<lastOperation, isAsOptional>
+		)					
+		[
+			Operation<out lastOperation>	
+		]										(. else { lastOperation = null; } .)
+											
+	}											(. if (lastOperation != null && lastOperation.Child == null) SemErr("Invalid Condition"); .)
+.
+
+Condition<SingleNodeTree parent, SelectorExpression parentSelector, bool? isAsOptional>				
+												(. 
+													SelectorTypes selectorType = SelectorTypes.Unspecified; 
+													ModifierTypes modifierType; 
+													DimensionExpression dim; 
+													ModifierTypes modifierResult; 
+												.)			
+=
+												(. 
+													SelectorExpression selector = new SelectorExpression(); MultiAdd(parent, selector); 
+													if(parentSelector != null) 
+													{
+														selector.SetNodeType(parentSelector.NodeType);
+														selector.SetModifierType(parentSelector.Modifier);
+														selector.SetLeft(parentSelector.Left);
+													}
+												.)
+
+	(
+		ComplexCondition<parent, selector, false>
+		|										(. dim = new DimensionExpression(); selector.SetRight(dim); .)
+		Primary<dim, false>
+		|										(. ExpressionTreeBase expr = null;  .)
+		LiteralExpression<ref expr>				(. selector.SetRight(expr); .)
+	)
+
+	[
+		Modifier<out modifierResult>			(. selector.SetLeft(selector.Right); selector.SetRight(null); modifierType = modifierResult; selector.SetModifierType(modifierType); selector.SetNodeType(SelectorTypes.Unknown); .)	
+
+		(
+			ComplexCondition<parent, selector, false>
+			|									(. dim = new DimensionExpression(); selector.SetRight(dim); .)
+			Primary<dim, false>				
+			|									(. ExpressionTreeBase expr = null;  .)
+			LiteralExpression<ref expr>			(. selector.SetRight(expr); .)
+		)
+	]
+
+	(. if(isAsOptional == true){	 .)
+	[
+		[As]
+												(. string alias = null; .)
+		AliasClause<ref alias>					(. selector.Target = alias; .)
+	]
+	(. }else if(isAsOptional == false){ .)
+	[
+		As
+												(. string alias = null; .)
+		AliasClause<ref alias>					(. selector.Target = alias; .)
+	]
+	(. } .)
+
+.
+
+Modifier<out ModifierTypes type>				(. type = ModifierTypes.Equals; .)
+=
+	":"											(. type = ModifierTypes.Colon; .)
+	| "="										(. type = ModifierTypes.Equals; .)
+	| Like										(. type = ModifierTypes.Like; .)
+	| "<"										(. type = ModifierTypes.LessThan; .)
+	| ">"										(. type = ModifierTypes.GreaterThan; .)
+	| "*"										(. type = ModifierTypes.Multiply; .)
+	| "/"										(. type = ModifierTypes.Divide; .)
+	| "+"										(. type = ModifierTypes.Add; .)
+	| "-"										(. type = ModifierTypes.Subtract; .)
+.
+
+ConditionGroup<SingleNodeTree parent, bool? isAsOptional>			
+												(. 
+													ConditionGroup group = new ConditionGroup(); parent.SetChild(group); 
+													ExpressionTreeBase addTo = group; SingleNodeTree condition = null; 
+													ConditionalExpression lastOperation = null; .)
+=
+	OpenGroup
+	{											(. 
+													lastOperation = lastOperation ?? new AndCondition();
+													MultiAdd(addTo, lastOperation);
+													addTo = lastOperation;
+												.)
+		[
+			(Not | "-")
+			[Colon]							(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+		]
+		(
+			Condition<lastOperation, null, isAsOptional>
+			|
+			ConditionGroup<lastOperation, isAsOptional>
+		)					
+		[
+			Operation<out lastOperation>
+		]										(. else { lastOperation = null; } .)
+	}											(. if (lastOperation != null && lastOperation.Child == null) SemErr("Invalid Condition"); .)
+	CloseGroup								
+.
+
+ComplexCondition<SingleNodeTree parent, SelectorExpression selector, bool? isAsOptional>(. ConditionGroup group = new ConditionGroup(); parent.SetChild(group); ExpressionTreeBase addTo = group; SingleNodeTree condition = null; ConditionalExpression lastOperation = null; .)
+=
+	OpenGroup
+	{										
+												(. 
+													lastOperation = lastOperation ?? new AndCondition();
+													MultiAdd(addTo, lastOperation);
+													addTo = lastOperation;
+													var nestedselector = new SelectorExpression(selector.NodeType, selector.Modifier, selector.Left);
+												.)
+		(
+			[
+				(Not | "-")
+				[Colon]					(. NotCondition not = new NotCondition(); lastOperation.SetChild(not); lastOperation = not; .)
+			]					
+			(
+				ComplexCondition<lastOperation, nestedselector, isAsOptional>
+				|							
+				Condition<lastOperation, nestedselector, isAsOptional>
+			)
+			
+			[
+				Operation<out lastOperation>
+			]									(. else { lastOperation = null; } .)
+		)
+	}
+	CloseGroup
+.
+
+LiteralExpression<ref ExpressionTreeBase expr>
+=	
+	Range										(. expr = new RangeExpression(t.val); .)
+	|
+	Word										(. expr = new LiteralExpression(t.val); .)
+	|
+	Phrase										(. expr = new LiteralExpression(t.val.Substring(1, t.val.Length - 2), true); .)
+	|
+	Id											(. expr = new ValueExpression(Int32.Parse(t.val.Substring(1))); .)
+	|
+	Number										(. expr = new LiteralExpression(t.val); .)
+.
+
+Operation<out ConditionalExpression expression>	
+												(. expression = null; .)
+= 
+	And											(. expression = new AndCondition(); .)		
+	| 
+	Or											(. expression = new OrCondition(); .)
+.
+
+END EvoQL.

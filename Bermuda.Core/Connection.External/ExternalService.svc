@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Bermuda.Core.Connection.External.ExternalService" CodeBehind="ExternalService.svc.cs" %>

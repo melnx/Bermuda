@@ -1,0 +1,98 @@
+
+
+SECTIONS
+
+EXPORTS
+
+
+    SQLAllocHandle            @1
+    SQLBindCol                @2
+    SQLBindParameter        @3
+    SQLBrowseConnect        @4
+    SQLCancel                @5
+    SQLCloseCursor            @6
+    SQLColAttribute            @7
+    SQLColumnPrivileges        @8
+    SQLColumns                @9
+    SQLConnect                @10
+    SQLCopyDesc                @11
+    SQLDescribeCol            @12
+    SQLDescribeParam        @13
+    SQLDisconnect            @14
+    SQLDriverConnect        @15
+    SQLEndTran                @16
+    SQLExecDirect            @17
+    SQLExecute                @18
+    SQLExtendedFetch        @19
+    SQLFetch                @20
+    SQLFetchScroll            @21
+    SQLForeignKeys            @22
+    SQLFreeHandle            @23
+    SQLFreeStmt                @24
+    SQLGetConnectAttr        @25
+    SQLGetCursorName        @26
+    SQLGetData                @27
+    SQLGetDescField            @28
+    SQLGetDescRec            @29
+    SQLGetDiagField            @30
+    SQLGetDiagRec            @31
+    SQLGetEnvAttr            @32
+    SQLGetFunctions            @33
+    SQLGetInfo                @34
+    SQLGetStmtAttr            @35
+    SQLGetTypeInfo            @36
+    SQLMoreResults            @37
+    SQLNativeSql            @38
+    SQLNumParams            @39
+    SQLNumResultCols        @40
+    SQLParamData            @41
+    SQLPrepare                @42
+    SQLPrimaryKeys            @43
+    SQLProcedureColumns        @44
+    SQLProcedures            @45
+    SQLPutData                @46
+    SQLRowCount                @47
+    SQLSetConnectAttr        @48
+    SQLSetCursorName        @49
+    SQLSetDescField            @50
+    SQLSetDescRec            @51
+    SQLSetEnvAttr            @52
+    SQLSetPos                @53
+    SQLSetStmtAttr            @54
+    SQLSpecialColumns        @55
+    SQLStatistics            @56
+    SQLTablePrivileges        @57
+    SQLTables                @58
+
+    
+    SQLBrowseConnectW         @100
+    SQLColAttributeW        @101
+    SQLColumnPrivilegesW    @102
+    SQLColumnsW                @103
+    SQLConnectW                @104
+    SQLDescribeColW            @105
+    SQLDriverConnectW        @106
+    SQLExecDirectW            @107
+    SQLForeignKeysW            @108
+    SQLGetCursorNameW        @109
+    SQLGetConnectAttrW        @110
+    SQLGetDescFieldW        @111
+    SQLGetDescRecW            @112
+    SQLGetDiagFieldW        @113
+    SQLGetDiagRecW            @114    
+    SQLGetInfoW                @115
+    SQLGetStmtAttrW            @116
+    SQLGetTypeInfoW            @117
+    SQLNativeSqlW            @118
+    SQLPrepareW                @119
+    SQLPrimaryKeysW            @120
+    SQLProcedureColumnsW    @121    
+    SQLProceduresW            @122
+    SQLSetConnectAttrW        @123    
+    SQLSetCursorNameW        @124    
+    SQLSetDescFieldW        @125    
+    SQLSetStmtAttrW            @126
+    SQLSpecialColumnsW        @127    
+    SQLStatisticsW            @128
+    SQLTablePrivilegesW        @129    
+    SQLTablesW                @130

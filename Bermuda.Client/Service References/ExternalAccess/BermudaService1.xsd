@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:13866/Connection.Internal/BermudaService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Bermuda.Service" />
+  <xs:element name="Ping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="param" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PingResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMentions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="domain" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="blob" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="partitions" type="xs:int" />
+        <xs:element minOccurs="0" name="query" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="paging" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="minDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="maxDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="remdepth" type="xs:int" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="parameters" nillable="true" type="q1:ArrayOfanyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMentionsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Bermuda.Service" minOccurs="0" name="GetMentionsResult" nillable="true" type="q2:BermudaMentionResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatapoints">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="domain" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="blob" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="partitions" type="xs:int" />
+        <xs:element minOccurs="0" name="query" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="mapreduce" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="merge" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="minDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="maxDate" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="remdepth" type="xs:int" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="parameters" nillable="true" type="q3:ArrayOfanyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatapointsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Bermuda.Service" minOccurs="0" name="GetDatapointsResult" nillable="true" type="q4:BermudaDatapointResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Bermuda.Azure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="2" osVersion="*">
+  <Role name="Bermuda.Azure.WebRole">
+    <Instances count="2" />
+    <ConfigurationSettings>
+      <Setting name="StorageAccount.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=evoappdata;AccountKey=Bx0L1WrJ++RyQAAtHYcMNmJOl2XhGd8A3EEm/6pEykfnkcFMd7HxH9f2nXtufRyaO/oHrhn2WUYwUw75DQUJGQ==" />
+      <Setting name="CloudDir" value="BlobEndpoint=http://bermudadev.blob.core.windows.net/;AccountName=bermudadev;AccountKey=wTcnnV6XowmXOd4Sahywrvg1Jnh6cf10KmKA2FcNj7NbeBuczqrOXEXtWGTb8XBgrITfWyxt4F+Gs7e7T2g6EA==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="adm1n" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBjwYJKoZIhvcNAQcDoIIBgDCCAXwCAQAxggFAMIIBPAIBADAkMBAxDjAMBgNVBAMTBUVkLVBDAhBsuz5EXkx5i0HlmCGBguKhMA0GCSqGSIb3DQEBAQUABIIBAKLkPN6qmZYxJq2LxXO5TprenkgppiZuO8OBvC+OummgFk9ufQAoHITb0QSMrhoEvf5fTuIdWDLRxi7S7xaWpWo6pABI+FWo18eF9DAwDuSjigXj3p1KD+6hEZjRmaLiBztT03Pbb9vNBrVxSiSWbbX7zj9CwQFgGRsmFp6iFrDKBsV6UCyP0LYCxaohZwffJ7SPJRAvGoGxMQLZEe4I+mrL76cMl3m/6IsefNKfpoR6ZlXD1dgU2NrXJhr8POIKnVoY903nnT8xGMAmMhxk1sJydzU4IXQTGUaTdEpbpY4dVchWPf5pY3qZ1PXAe/3tHDTi1/FkJKmLxQuC78Uwvh0wMwYJKoZIhvcNAQcBMBQGCCqGSIb3DQMHBAgjKl9LawvAC4AQYKG+CSK+HMXLXSdLry3ETw==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2012-08-31T23:59:59.0000000-04:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="AEBCC83D2678B39712BFEAC43D7DA94140D2FCE6" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

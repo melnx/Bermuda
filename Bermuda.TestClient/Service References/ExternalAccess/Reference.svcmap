@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="762c9c4b-806e-4cf1-8568-b913fea20793" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:13866/Connection.External/ExternalService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ExternalService.xsd" MetadataType="Schema" ID="4e993b2a-a0f4-4dd8-854a-483ec837d370" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ExternalService1.xsd" MetadataType="Schema" ID="3c8bb9bf-849b-429b-9c71-925c9dd81816" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?xsd=xsd4" />
+    <MetadataFile FileName="ExternalService.disco" MetadataType="Disco" ID="2f49314c-da68-4e5d-a426-4a5449ff9022" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?disco" />
+    <MetadataFile FileName="ExternalService2.xsd" MetadataType="Schema" ID="a2d37a92-3473-46cb-955d-8783a2061741" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ExternalService.wsdl" MetadataType="Wsdl" ID="ed51da6c-fc33-47fd-bb34-4ea457a79db9" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?wsdl" />
+    <MetadataFile FileName="ExternalService3.xsd" MetadataType="Schema" ID="2f621d3c-9fe9-4aef-b756-2bfe59dbdc4f" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ExternalService4.xsd" MetadataType="Schema" ID="b69e8f7f-d2dd-4f47-8f76-99c7f4de6370" SourceId="1" SourceUrl="http://localhost:13866/Connection.External/ExternalService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

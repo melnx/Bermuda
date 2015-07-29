@@ -1,0 +1,61 @@
+﻿<Window x:Class="Bermuda.BermudaConfig.RelationshipConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Relationship Configuration" Height="430" Width="525"
+        Background="AliceBlue"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+         WindowStyle="ToolWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Relationship Name" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding Relationship.RelationshipName}"/>
+            <Label Content="Parent Table" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+            <ComboBox Name="cbParentTable" Grid.Row="1" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.Tables}" SelectedItem="{Binding Relationship.ParentTableName}" Margin="5" SelectionChanged="cbParentTable_SelectionChanged"/>
+            <Label Content="Parent Field" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.ParentColumns}" SelectedItem="{Binding Relationship.ParentField}" Margin="5"/>
+            <Label Content="Parent Child Collection" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
+            <TextBox VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Relationship.ParentChildCollection}"/>
+            <Label Content="Child Table" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="5"/>
+            <ComboBox Name="cbChildTable" Grid.Row="4" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.Tables}" SelectedItem="{Binding Relationship.ChildTableName}" Margin="5" SelectionChanged="cbChildTable_SelectionChanged"/>
+            <Label Content="Child Field" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Margin="5"/>
+            <ComboBox Grid.Row="5" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.ChildColumns}" SelectedItem="{Binding Relationship.ChildField}" Margin="5"/>
+            <Label Content="Relation Table" VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Margin="5"/>
+            <ComboBox Name="cbRelationTable" Grid.Row="6" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.Tables}" SelectedItem="{Binding Relationship.RelationTableName}" Margin="5" SelectionChanged="cbRelationTable_SelectionChanged"/>
+            <Label Content="Relation Parent Field" VerticalAlignment="Center" Grid.Row="7" Grid.Column="0" Margin="5"/>
+            <ComboBox Grid.Row="7" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.RelationColumns}" SelectedItem="{Binding Relationship.ParentRelationshipField}" Margin="5"/>
+            <Label Content="Relation Child Field" VerticalAlignment="Center" Grid.Row="8" Grid.Column="0" Margin="5"/>
+            <ComboBox Grid.Row="8" Grid.Column="1" Width="150" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.RelationColumns}" SelectedItem="{Binding Relationship.ChildRelationshipField}" Margin="5"/>
+            <Label Content="Distinct Relationship" VerticalAlignment="Center" Grid.Row="9" Grid.Column="0" Margin="5"/>
+            <ComboBox Grid.Row="9" Grid.Column="1" Width="75" Height="25" HorizontalAlignment="Left" ItemsSource="{Binding DataContext.BoolValues}" SelectedItem="{Binding DistinctRelationship}" Margin="5"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnOK" Content="OK" Grid.Column="1" Margin="5" Click="btnOK_Click"/>
+            <Button Name="btnCancel" Content="Cancel" Grid.Column="2" Margin="5" Click="btnCancel_Click"/>
+        </Grid>
+    </Grid>
+</Window>
